@@ -1,6 +1,7 @@
 package rocks.throw20.contentprovider;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -10,7 +11,7 @@ import android.provider.BaseColumns;
 public class DataCountriesContract {
 
     // The content authority
-    public static final String CONTENT_AUTHORITY = "rocks.throw2.countries";
+    public static final String CONTENT_AUTHORITY = "rocks.throw20.countries";
     //The content uri for the top level authority
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
@@ -19,15 +20,8 @@ public class DataCountriesContract {
     // The path to the country table
     public static final String PATH_COUNTRY_ID = "country/";
     // This is the complete path to the Countries database
-    public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_COUNTRIES)
-            .build();
 
-    // This Uri returns multiple records
-    public  static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-            "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRIES;
-    // This Uri returns one record
-    public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-            "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY_ID;
+
 
     /**
      * Country Entry
@@ -36,7 +30,7 @@ public class DataCountriesContract {
 
     public static final class CountryEntry implements BaseColumns{
         // This is the complete path to the countries database
-        public static final Uri ContentUri = BASE_CONTENT_URI.buildUpon().appendPath(PATH_COUNTRIES)
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_COUNTRIES)
                 .build();
         // Returns multiple records
         public static final String CONTENT_TYPE =
@@ -54,9 +48,11 @@ public class DataCountriesContract {
         public static final String countryCapital = "capital";
         public static final String countryRegion = "region";
         public static final String countryPopulation = "population";
-
+        public static Uri buildCountriesUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
         // Build the countries Uri
-        public static Uri buildCountriesUri() {
+        public static Uri buildCountries() {
             return CONTENT_URI.buildUpon().build();
         }
 

@@ -14,7 +14,7 @@ import java.net.URL;
 /**
  * Created by joselopez on 3/10/16.
  */
-public class DataCountriesAPI {
+class DataCountriesAPI {
 
     private static final String LOG_TAG = DataCountriesAPI.class.getSimpleName();
 

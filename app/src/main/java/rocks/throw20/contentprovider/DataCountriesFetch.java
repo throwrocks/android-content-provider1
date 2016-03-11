@@ -9,7 +9,7 @@ import org.json.JSONArray;
 /**
  * Created by joselopez on 3/10/16.
  */
-public class DataCountriesFetch extends AsyncTask<String, Void, Void> {
+class DataCountriesFetch extends AsyncTask<String, Void, Void> {
 
     private static final String LOG_TAG = DataCountriesFetch.class.getSimpleName();
 

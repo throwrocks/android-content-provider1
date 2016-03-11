@@ -10,7 +10,7 @@ import org.json.JSONObject;
 /**
  * Created by joselopez on 3/10/16.
  */
-public class DataCountriesJSONParser {
+class DataCountriesJSONParser {
 
     private static final String LOG_TAG = DataCountriesAPI.class.getSimpleName();
 
@@ -54,6 +54,16 @@ public class DataCountriesJSONParser {
                 Long countryPopulation = countryRecord.getLong(fieldCountryPopulation);
 
                 //Log.e(LOG_TAG, "Parsing string: " + countryName + " " + countryCapital + " " + countryRegion);
+
+                DataCountriesStore store = new DataCountriesStore(
+                        mContext,
+                        i,
+                        countryName,
+                        countryCapital,
+                        countryRegion,
+                        countryPopulation
+                );
+
             }
         }
         catch (JSONException e) {
