@@ -8,12 +8,12 @@ import android.util.Log;
 /**
  * Created by josel on 3/10/2016.
  */
-public class DataCountriesStore {
+public class DataCountriesStoreRecord {
 
-    private static final String LOG_TAG = DataCountriesStore.class.getSimpleName();
+    private static final String LOG_TAG = DataCountriesStoreRecord.class.getSimpleName();
     Context mContext;
 
-    public DataCountriesStore(
+    public DataCountriesStoreRecord(
             Context context,
             Integer id,
             String name,
@@ -29,12 +29,10 @@ public class DataCountriesStore {
                DataCountriesContract.CountryEntry.countryId + " = ?",
                new String[]{Integer.toString(id)},
                null);
-        Log.e(LOG_TAG, "cursor:  " + countriesCursor);
+        //Log.e(LOG_TAG, "cursor:  " + countriesCursor);
         // Create the content values
         ContentValues countryValues = new ContentValues();
         // Update database
-        Log.e(LOG_TAG, "store:  " + name);
-        Log.e(LOG_TAG, "context:  " + mContext);
 
         countryValues.put(DataCountriesContract.CountryEntry.countryId, id);
         countryValues.put(DataCountriesContract.CountryEntry.countryName, name);
@@ -44,16 +42,18 @@ public class DataCountriesStore {
         //Log.e(LOG_TAG, "cursorCount " + countriesCursor.getCount());
 
         // If the record does not exist, add it to the database
-        if ( countriesCursor != null) {
-            countriesCursor.moveToFirst();
-            Log.e(LOG_TAG, "add record " + true);
+        if ( countriesCursor == null) {
+            Log.e(LOG_TAG, "add record");
             mContext.getContentResolver().insert(
                     DataCountriesContract.CountryEntry.CONTENT_URI,
                     countryValues
             );
-            countriesCursor.close();
+
         }else {
-            Log.e(LOG_TAG, "update record " + false);
+            countriesCursor.close();
+            Log.e(LOG_TAG, "records exists - do nothing");
+
+            // Update Record
             String[] x = new String[]{Long.toString(id)};
             mContext.getContentResolver().update(
                     DataCountriesContract.CountryEntry.CONTENT_URI,

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 class DBHelper extends SQLiteOpenHelper {
 
     // The databse version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_NAME = "countries.db";
 
@@ -28,7 +28,7 @@ class DBHelper extends SQLiteOpenHelper {
                         DataCountriesContract.CountryEntry.countryName + " TEXT NOT NULL, " +
                         DataCountriesContract.CountryEntry.countryCapital + " TEXT NOT NULL, " +
                         DataCountriesContract.CountryEntry.countryRegion + " TEXT NOT NULL, " +
-                        DataCountriesContract.CountryEntry.countryPopulation + " INTENER NOT NULL " +
+                        DataCountriesContract.CountryEntry.countryPopulation + " INTEGER NOT NULL " +
                         ")";
         sqLiteDatabase.execSQL(SQL_CREATE_COUNTRIES_TABLE);
 

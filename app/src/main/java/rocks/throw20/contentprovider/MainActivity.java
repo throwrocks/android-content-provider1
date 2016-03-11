@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.stetho.Stetho;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Stetho.initializeWithDefaults(this);
         // Create a DataFetch Async task and execute it
         DataCountriesFetch fetchData = new DataCountriesFetch(this);
         fetchData.execute();

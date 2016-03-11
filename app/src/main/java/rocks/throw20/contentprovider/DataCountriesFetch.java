@@ -1,10 +1,13 @@
 package rocks.throw20.contentprovider;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 /**
  * Created by joselopez on 3/10/16.
@@ -24,16 +27,32 @@ class DataCountriesFetch extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... params) {
 
-        String results;
+        String jsonResults;
+        ContentValues[] parsedResults;
 
+        // Create an API object
         DataCountriesAPI mAPI = new DataCountriesAPI(mContext);
-        results = mAPI.callAPI();
 
+        // Get the results from the API
+        jsonResults = mAPI.callAPI();
         //Log.e(LOG_TAG, "results " + results);
-        if ( results != null ) {
-            DataCountriesJSONParser pareseCountries = new DataCountriesJSONParser(mContext);
-            pareseCountries.getCountriesFromJSON(results);
+
+        // Parse the results if not null
+        if ( jsonResults != null ) {
+            DataCountriesJSONParser parseCountries = new DataCountriesJSONParser(mContext);
+
+            // Get the parsed results
+            parsedResults = parseCountries.getCountriesFromJSON(jsonResults);
+
+            if ( parsedResults != null ){
+                // Bulkd insert
+                DataCountriesStoreBulk bulkInsert = new DataCountriesStoreBulk(mContext, parsedResults);
+
+            }
         }
+
+
+
         return null;
     }
 
