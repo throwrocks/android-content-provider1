@@ -1,4 +1,4 @@
-package rocks.throw20.contentprovider;
+package rocks.throw20.contentprovider.Data;
 
 import android.annotation.TargetApi;
 import android.content.ContentProvider;

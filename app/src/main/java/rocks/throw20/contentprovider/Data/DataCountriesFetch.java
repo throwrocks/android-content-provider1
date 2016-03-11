@@ -1,4 +1,4 @@
-package rocks.throw20.contentprovider;
+package rocks.throw20.contentprovider.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 /**
  * Created by joselopez on 3/10/16.
  */
-class DataCountriesFetch extends AsyncTask<String, Void, Void> {
+public class DataCountriesFetch extends AsyncTask<String, Void, Void> {
 
     private static final String LOG_TAG = DataCountriesFetch.class.getSimpleName();
 

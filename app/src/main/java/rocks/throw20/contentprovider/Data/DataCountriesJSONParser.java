@@ -1,16 +1,11 @@
-package rocks.throw20.contentprovider;
+package rocks.throw20.contentprovider.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by joselopez on 3/10/16.

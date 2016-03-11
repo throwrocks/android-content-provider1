@@ -1,4 +1,4 @@
-package rocks.throw20.contentprovider;
+package rocks.throw20.contentprovider.Data;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
