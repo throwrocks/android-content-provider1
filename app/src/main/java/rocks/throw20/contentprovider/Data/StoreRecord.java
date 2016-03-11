@@ -8,45 +8,46 @@ import android.util.Log;
 /**
  * Created by josel on 3/10/2016.
  */
-public class DataCountriesStoreRecord {
+public class StoreRecord {
 
-    private static final String LOG_TAG = DataCountriesStoreRecord.class.getSimpleName();
+    private static final String LOG_TAG = StoreRecord.class.getSimpleName();
     Context mContext;
+    ContentValues mCountryValues;
 
-    public DataCountriesStoreRecord(
+    public StoreRecord(
             Context context,
             ContentValues countryValues
     ) {
         this.mContext = context;
-
+        this.mCountryValues = countryValues;
         // Get the name to see if it already exists
-        String name = countryValues.getAsString(DataCountriesContract.CountryEntry.countryName);
-
+        String name = countryValues.getAsString(Contract.CountryEntry.countryName);
+        Log.e(LOG_TAG, "name: " + name);
         // Query the database for the name
         Cursor countriesCursor = mContext.getContentResolver().query(
-               DataCountriesContract.CountryEntry.CONTENT_URI,
-               new String[]{DataCountriesContract.CountryEntry.countryId},
-               DataCountriesContract.CountryEntry.countryName + " = ?",
+               Contract.CountryEntry.CONTENT_URI,
+               new String[]{Contract.CountryEntry.countryName},
+               Contract.CountryEntry.countryName + " = ?",
                new String[]{name},
                null);
-
+        Log.e(LOG_TAG, "cursor: " + countriesCursor);
         // If the record does not exist, add it to the database
         if ( countriesCursor == null) {
             Log.e(LOG_TAG, "add record");
             mContext.getContentResolver().insert(
-                    DataCountriesContract.CountryEntry.CONTENT_URI,
-                    countryValues
+                    Contract.CountryEntry.CONTENT_URI,
+                    mCountryValues
             );
 
         }else {
             countriesCursor.close();
-            Log.e(LOG_TAG, "records exists - do nothing");
+            Log.e(LOG_TAG, "update record");
 
             // Update the record
             mContext.getContentResolver().update(
-                    DataCountriesContract.CountryEntry.CONTENT_URI,
-                    countryValues,
-                    DataCountriesContract.CountryEntry.countryName + " = ?",
+                    Contract.CountryEntry.CONTENT_URI,
+                    mCountryValues,
+                    Contract.CountryEntry.countryName + " = ?",
                     new String[]{name}
             );
         }

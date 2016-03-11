@@ -14,16 +14,16 @@ import java.net.URL;
 /**
  * Created by joselopez on 3/10/16.
  */
-class DataCountriesAPI {
+class API {
 
-    private static final String LOG_TAG = DataCountriesAPI.class.getSimpleName();
+    private static final String LOG_TAG = API.class.getSimpleName();
 
     private final Context mContext;
 
     private static final String apiURI = "https://restcountries.eu/rest/v1/all";
 
     // Constructor
-    public DataCountriesAPI(Context context){
+    public API(Context context){
         this.mContext = context;
 
     }

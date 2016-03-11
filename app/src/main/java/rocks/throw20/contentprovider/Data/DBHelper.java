@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 class DBHelper extends SQLiteOpenHelper {
 
     // The databse version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String DATABASE_NAME = "countries.db";
 
@@ -22,13 +22,13 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_CREATE_COUNTRIES_TABLE  =
                 "CREATE TABLE " +
-                        DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME + " (" +
-                        DataCountriesContract.CountryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        DataCountriesContract.CountryEntry.countryId + " INTEGER NOT NULL, " +
-                        DataCountriesContract.CountryEntry.countryName + " TEXT NOT NULL, " +
-                        DataCountriesContract.CountryEntry.countryCapital + " TEXT NOT NULL, " +
-                        DataCountriesContract.CountryEntry.countryRegion + " TEXT NOT NULL, " +
-                        DataCountriesContract.CountryEntry.countryPopulation + " INTEGER NOT NULL " +
+                        Contract.CountryEntry.COUNTRIES_TABLE_NAME + " (" +
+                        Contract.CountryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        Contract.CountryEntry.countryId + " INTEGER NOT NULL, " +
+                        Contract.CountryEntry.countryName + " TEXT NOT NULL, " +
+                        Contract.CountryEntry.countryCapital + " TEXT NOT NULL, " +
+                        Contract.CountryEntry.countryRegion + " TEXT NOT NULL, " +
+                        Contract.CountryEntry.countryPopulation + " INTEGER NOT NULL " +
                         ")";
         sqLiteDatabase.execSQL(SQL_CREATE_COUNTRIES_TABLE);
 
@@ -36,7 +36,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Contract.CountryEntry.COUNTRIES_TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 

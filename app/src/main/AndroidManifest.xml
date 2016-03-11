@@ -20,7 +20,7 @@
         </activity>
 
         <provider
-            android:name=".Data.DataCountriesProvider"
+            android:name=".Data.Provider"
             android:authorities="rocks.throw20.countries"
             android:enabled="true"
             android:exported="false"

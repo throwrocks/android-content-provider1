@@ -15,7 +15,7 @@ import android.util.Log;
 /**
  * Created by josel on 3/10/2016.
  */
-public class DataCountriesProvider extends ContentProvider {
+public class Provider extends ContentProvider {
     private static final String LOG_TAG = "CountriesProvider";
     // The URI Matcher used by this content provider.
     private static final UriMatcher sUriMatcher = buildUriMatcher();
@@ -32,15 +32,15 @@ public class DataCountriesProvider extends ContentProvider {
     static {
         sCountriesQueryBuilder = new SQLiteQueryBuilder();
         sCountriesQueryBuilder.setTables(
-                DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME
+                Contract.CountryEntry.COUNTRIES_TABLE_NAME
         );
 
     }
 
     //sCountryByID build the uri to get a country by id
     private static final String sCountryByName =
-            DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME +
-                    "." + DataCountriesContract.CountryEntry.countryName + " = ? ";
+            Contract.CountryEntry.COUNTRIES_TABLE_NAME +
+                    "." + Contract.CountryEntry.countryName + " = ? ";
 
     /**
      * getCountriesByID
@@ -57,7 +57,7 @@ public class DataCountriesProvider extends ContentProvider {
         //---------------------------------------------------------
         // Countries Cursor
         //---------------------------------------------------------
-        String name = DataCountriesContract.CountryEntry.getCountryIdFromUri(uri);
+        String name = Contract.CountryEntry.getCountryIdFromUri(uri);
         String[] countriesSelectionArgs = {
                 name
         };
@@ -83,11 +83,11 @@ public class DataCountriesProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = DataCountriesContract.CONTENT_AUTHORITY;
+        final String authority = Contract.CONTENT_AUTHORITY;
 
         // For each type of URI you want to add, create a corresponding code.
-        matcher.addURI(authority, DataCountriesContract.PATH_COUNTRIES, COUNTRIES);
-        matcher.addURI(authority, DataCountriesContract.PATH_COUNTRY_ID + "/#", COUNTRY_ID);
+        matcher.addURI(authority, Contract.PATH_COUNTRIES, COUNTRIES);
+        matcher.addURI(authority, Contract.PATH_COUNTRY_ID + "/#", COUNTRY_ID);
 
         return matcher;
     }
@@ -109,9 +109,9 @@ public class DataCountriesProvider extends ContentProvider {
         switch (match) {
             // Student: Uncomment and fill out these two cases
             case COUNTRIES:
-                return DataCountriesContract.CountryEntry.CONTENT_TYPE;
+                return Contract.CountryEntry.CONTENT_TYPE;
             case COUNTRY_ID:
-                return DataCountriesContract.CountryEntry.CONTENT_ITEM_TYPE;
+                return Contract.CountryEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -131,7 +131,7 @@ public class DataCountriesProvider extends ContentProvider {
             {
 
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME,
+                        Contract.CountryEntry.COUNTRIES_TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -163,8 +163,8 @@ public class DataCountriesProvider extends ContentProvider {
         switch (match) {
             case COUNTRIES:
             {
-                long _id = db.insert(DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME, null, values);
-                if (_id > 0) returnUri = DataCountriesContract.CountryEntry.buildCountriesUri(_id);
+                long _id = db.insert(Contract.CountryEntry.COUNTRIES_TABLE_NAME, null, values);
+                if (_id > 0) returnUri = Contract.CountryEntry.buildCountriesUri(_id);
                 else throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
             }
@@ -185,7 +185,7 @@ public class DataCountriesProvider extends ContentProvider {
         switch (match) {
             case COUNTRIES:
                 rowsDeleted = db.delete(
-                        DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME, selection, selectionArgs);
+                        Contract.CountryEntry.COUNTRIES_TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -209,7 +209,7 @@ public class DataCountriesProvider extends ContentProvider {
         switch (match) {
             case COUNTRIES:
                 Log.e(LOG_TAG, "updateCountries " + true);
-                rowsUpdated = db.update(DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME, values, selection,
+                rowsUpdated = db.update(Contract.CountryEntry.COUNTRIES_TABLE_NAME, values, selection,
                         selectionArgs);
                 break;
             default:
@@ -232,7 +232,7 @@ public class DataCountriesProvider extends ContentProvider {
                 try {
                     for (ContentValues value: values) {
                         Log.e(LOG_TAG, "Lets bulk!");
-                        long _id = db.insert(DataCountriesContract.CountryEntry.COUNTRIES_TABLE_NAME, null, value);
+                        long _id = db.insert(Contract.CountryEntry.COUNTRIES_TABLE_NAME, null, value);
                         if (_id != -1) {
                             returnCount++;
                         }

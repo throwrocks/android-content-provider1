@@ -8,7 +8,7 @@ import android.provider.BaseColumns;
 /**
  * Created by josel on 3/10/2016.
  */
-public class DataCountriesContract {
+public class Contract {
 
     // The content authority
     public static final String CONTENT_AUTHORITY = "rocks.throw20.countries";

@@ -7,9 +7,9 @@ import android.util.Log;
 /**
  * Created by josel on 3/10/2016.
  */
-public class DataCountriesStore {
+public class Store {
 
-    private static final String LOG_TAG = DataCountriesStoreRecord.class.getSimpleName();
+    private static final String LOG_TAG = StoreRecord.class.getSimpleName();
     Context mContext;
 
     /**
@@ -20,7 +20,7 @@ public class DataCountriesStore {
      *               bulk = bulk insert, use this when populating for the first time
      *               insert/update = loops through, created if it doesn't exist, updates if it does
      */
-    public DataCountriesStore(
+    public Store(
             Context context,
             ContentValues[] countryValues,
             String method
@@ -31,13 +31,13 @@ public class DataCountriesStore {
         if (method.equals("bulk")){
             Log.e(LOG_TAG, "Lets bulk");
             mContext.getContentResolver().bulkInsert(
-                    DataCountriesContract.CountryEntry.CONTENT_URI,
+                    Contract.CountryEntry.CONTENT_URI,
                     countryValues
             );
         }else if(method.equals("insert/update")){
             Log.e(LOG_TAG, "Lets insert/update!");
             for (ContentValues value: countryValues) {
-                new DataCountriesStoreRecord( mContext, value );
+                new StoreRecord( mContext, value );
             }
         }
     }

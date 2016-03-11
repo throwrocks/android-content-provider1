@@ -10,9 +10,9 @@ import org.json.JSONObject;
 /**
  * Created by joselopez on 3/10/16.
  */
-class DataCountriesJSONParser {
+class JSONParser {
 
-    private static final String LOG_TAG = DataCountriesAPI.class.getSimpleName();
+    private static final String LOG_TAG = API.class.getSimpleName();
 
     ContentValues[] mContentValues;
 
@@ -20,7 +20,7 @@ class DataCountriesJSONParser {
 
 
     // Constructor
-    public DataCountriesJSONParser(Context context){
+    public JSONParser(Context context){
 
         this.mContext = context;
 
@@ -33,11 +33,11 @@ class DataCountriesJSONParser {
             JSONArray countriesArray = new JSONArray(countriesJSONString);
 
             // These are the individual fields
-            final String fieldCountryId = DataCountriesContract.CountryEntry.countryId;
-            final String fieldCountryName = DataCountriesContract.CountryEntry.countryName;
-            final String fieldCountryCapital = DataCountriesContract.CountryEntry.countryCapital;
-            final String fieldCountryRegion = DataCountriesContract.CountryEntry.countryRegion;
-            final String fieldCountryPopulation = DataCountriesContract.CountryEntry.countryPopulation;
+            final String fieldCountryId = Contract.CountryEntry.countryId;
+            final String fieldCountryName = Contract.CountryEntry.countryName;
+            final String fieldCountryCapital = Contract.CountryEntry.countryCapital;
+            final String fieldCountryRegion = Contract.CountryEntry.countryRegion;
+            final String fieldCountryPopulation = Contract.CountryEntry.countryPopulation;
 
             int countriesQty = countriesArray.length();
             //Log.e(LOG_TAG, "CountriesQty: " + countriesQty);
