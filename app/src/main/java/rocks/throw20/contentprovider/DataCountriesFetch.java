@@ -3,11 +3,6 @@ package rocks.throw20.contentprovider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 /**
  * Created by joselopez on 3/10/16.
@@ -45,8 +40,8 @@ class DataCountriesFetch extends AsyncTask<String, Void, Void> {
             parsedResults = parseCountries.getCountriesFromJSON(jsonResults);
 
             if ( parsedResults != null ){
-                // Bulkd insert
-                DataCountriesStoreBulk bulkInsert = new DataCountriesStoreBulk(mContext, parsedResults);
+                // Bulk insert
+                DataCountriesStore bulkInsert = new DataCountriesStore(mContext, parsedResults, "insert/update");
 
             }
         }

@@ -15,31 +15,20 @@ public class DataCountriesStoreRecord {
 
     public DataCountriesStoreRecord(
             Context context,
-            Integer id,
-            String name,
-            String capital,
-            String region,
-            Long population
+            ContentValues countryValues
     ) {
         this.mContext = context;
-        // First, check if the country exists in the db
+
+        // Get the name to see if it already exists
+        String name = countryValues.getAsString(DataCountriesContract.CountryEntry.countryName);
+
+        // Query the database for the name
         Cursor countriesCursor = mContext.getContentResolver().query(
                DataCountriesContract.CountryEntry.CONTENT_URI,
                new String[]{DataCountriesContract.CountryEntry.countryId},
-               DataCountriesContract.CountryEntry.countryId + " = ?",
-               new String[]{Integer.toString(id)},
+               DataCountriesContract.CountryEntry.countryName + " = ?",
+               new String[]{name},
                null);
-        //Log.e(LOG_TAG, "cursor:  " + countriesCursor);
-        // Create the content values
-        ContentValues countryValues = new ContentValues();
-        // Update database
-
-        countryValues.put(DataCountriesContract.CountryEntry.countryId, id);
-        countryValues.put(DataCountriesContract.CountryEntry.countryName, name);
-        countryValues.put(DataCountriesContract.CountryEntry.countryCapital, capital);
-        countryValues.put(DataCountriesContract.CountryEntry.countryRegion, region);
-        countryValues.put(DataCountriesContract.CountryEntry.countryPopulation, population);
-        //Log.e(LOG_TAG, "cursorCount " + countriesCursor.getCount());
 
         // If the record does not exist, add it to the database
         if ( countriesCursor == null) {
@@ -53,13 +42,12 @@ public class DataCountriesStoreRecord {
             countriesCursor.close();
             Log.e(LOG_TAG, "records exists - do nothing");
 
-            // Update Record
-            String[] x = new String[]{Long.toString(id)};
+            // Update the record
             mContext.getContentResolver().update(
                     DataCountriesContract.CountryEntry.CONTENT_URI,
                     countryValues,
                     DataCountriesContract.CountryEntry.countryName + " = ?",
-                    x
+                    new String[]{name}
             );
         }
 

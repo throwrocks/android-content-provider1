@@ -38,11 +38,11 @@ class DataCountriesJSONParser {
             JSONArray countriesArray = new JSONArray(countriesJSONString);
 
             // These are the individual fields
-            final String fieldCountryId = "id";
-            final String fieldCountryName = "name";
-            final String fieldCountryCapital = "capital";
-            final String fieldCountryRegion = "region";
-            final String fieldCountryPopulation = "population";
+            final String fieldCountryId = DataCountriesContract.CountryEntry.countryId;
+            final String fieldCountryName = DataCountriesContract.CountryEntry.countryName;
+            final String fieldCountryCapital = DataCountriesContract.CountryEntry.countryCapital;
+            final String fieldCountryRegion = DataCountriesContract.CountryEntry.countryRegion;
+            final String fieldCountryPopulation = DataCountriesContract.CountryEntry.countryPopulation;
 
             int countriesQty = countriesArray.length();
             //Log.e(LOG_TAG, "CountriesQty: " + countriesQty);
@@ -62,19 +62,6 @@ class DataCountriesJSONParser {
                 Long countryPopulation = countryRecord.getLong(fieldCountryPopulation);
                 //Log.e(LOG_TAG, "Parsing string: " + countryName + " " + countryCapital + " " + countryRegion);
 
-                //----------------------------------------------------------------------------------
-                // This method allows you to store (insert or update) each record as you loop through
-                // This could be useful but it should happen outside this class
-                //----------------------------------------------------------------------------------
-                /*DataCountriesStoreRecord store = new DataCountriesStoreRecord(
-                        mContext,
-                        i,
-                        countryName,
-                        countryCapital,
-                        countryRegion,
-                        countryPopulation
-                );*/
-
                 // Create a content values object
                 ContentValues countryValues = new ContentValues();
                 countryValues.put(fieldCountryId, i);
@@ -82,7 +69,6 @@ class DataCountriesJSONParser {
                 countryValues.put(fieldCountryCapital, countryCapital);
                 countryValues.put(fieldCountryRegion, countryRegion);
                 countryValues.put(fieldCountryPopulation, countryPopulation);
-
 
                 //----------------------------------------------------------------------------------
                 // Build an array of content values to be returned and processed outside this method
