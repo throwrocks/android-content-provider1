@@ -1,10 +1,15 @@
 package rocks.throw20.contentprovider;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +23,16 @@ import rocks.throw20.contentprovider.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class Fragment extends android.support.v4.app.Fragment {
+public class Fragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     public static final String ARG_ITEM_ID = "item_id";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    private final String LOG_TAG = Fragment.class.getSimpleName();
+    private Uri mUri;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,6 +79,36 @@ public class Fragment extends android.support.v4.app.Fragment {
         return view;
     }
 
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //Log.e(LOG_TAG, "onLoaderReset ->" + true);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle arguments) {
+        Log.v(LOG_TAG, "onCreateLoader -> " + true);
+        Log.v(LOG_TAG, "onCreateLoader -> " + this.getArguments());
+
+        if ( mUri != null ) {
+            Log.v(LOG_TAG, "onCreateLoader -> " + "return cursor");
+            /*return new CursorLoader(
+                    getActivity(),
+                    mUri,
+                    MOVIE_COLUMNS,
+                    null,
+                    null,
+                    null
+            ); */
+
+
+        }
+        return null;
+    }
 
     @Override
     public void onAttach(Context context) {
