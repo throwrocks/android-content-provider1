@@ -2,6 +2,7 @@ package rocks.throw20.contentprovider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -21,11 +23,16 @@ import com.facebook.stetho.Stetho;
 
 import java.util.List;
 
+import rocks.throw20.contentprovider.Data.Contract;
 import rocks.throw20.contentprovider.Data.FetchTask;
 import rocks.throw20.contentprovider.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity {
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
+
     private boolean mTwoPane;
+    Cursor mCursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,9 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
+
+
+        // Get cursor
+        mCursor = this.getContentResolver().query(
+                Contract.CountryEntry.CONTENT_URI,
+                null,null,null,
+                null);
+
         // Create a DataFetch Async task and execute it
-        FetchTask fetchData = new FetchTask(this);
-        fetchData.execute();
+        //FetchTask fetchData = new FetchTask(this);
+        //fetchData.execute();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Log.e(LOG_TAG, "onCreateViewHolder -> " + true);
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_countries, parent, false);
             return new ViewHolder(view);
@@ -77,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
+            Log.e(LOG_TAG, "onBindviewHolder -> " + true);
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(mValues.get(position).id);
             holder.mContentView.setText(mValues.get(position).content);
@@ -87,19 +104,14 @@ public class MainActivity extends AppCompatActivity {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
                         String itemId = holder.mItem.id;
-                        arguments.putString(Fragment.ARG_ITEM_ID, holder.mItem.id);
+
 
                         Context context = getApplicationContext();
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(context, itemId, duration);
                         toast.show();
 
-                        // Placeholder code
-                        /*Fragment fragment = new Fragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.content, fragment)
-                                .commit();*/
+
                     } else {
 
                         String itemId = holder.mItem.id;
@@ -109,12 +121,6 @@ public class MainActivity extends AppCompatActivity {
                         toast.show();
 
 
-                        //Placeholder code
-                        /*Context context = v.getContext();
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.putExtra(Fragment.ARG_ITEM_ID, holder.mItem.id);
-
-                        context.startActivity(intent);*/
                     }
                 }
             });
@@ -134,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = (TextView) view.findViewById(R.id.country_id);
+                mContentView = (TextView) view.findViewById(R.id.country_name);
             }
 
             @Override

@@ -9,7 +9,7 @@ import android.util.Log;
  */
 public class Store {
 
-    private static final String LOG_TAG = StoreRecord.class.getSimpleName();
+    private static final String LOG_TAG = Store.class.getSimpleName();
     Context mContext;
 
     /**
@@ -29,13 +29,13 @@ public class Store {
         this.mContext = context;
 
         if (method.equals("bulk")){
-            Log.e(LOG_TAG, "Lets bulk");
+            //Log.e(LOG_TAG, "Lets bulk");
             mContext.getContentResolver().bulkInsert(
                     Contract.CountryEntry.CONTENT_URI,
                     countryValues
             );
         }else if(method.equals("insert/update")){
-            Log.e(LOG_TAG, "Lets insert/update!");
+            //Log.e(LOG_TAG, "Lets insert/update!");
             for (ContentValues value: countryValues) {
                 new StoreRecord( mContext, value );
             }

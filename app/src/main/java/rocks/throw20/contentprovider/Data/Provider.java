@@ -142,7 +142,7 @@ public class Provider extends ContentProvider {
             }
             case COUNTRY_ID:
             {
-                Log.e(LOG_TAG, "query -> " + uri);
+                //Log.e(LOG_TAG, "query -> " + uri);
                 retCursor = getCountryByName(uri, projection, sortOrder);
                 break;
             }
@@ -208,7 +208,7 @@ public class Provider extends ContentProvider {
 
         switch (match) {
             case COUNTRIES:
-                Log.e(LOG_TAG, "updateCountries " + true);
+                //Log.e(LOG_TAG, "updateCountries " + true);
                 rowsUpdated = db.update(Contract.CountryEntry.COUNTRIES_TABLE_NAME, values, selection,
                         selectionArgs);
                 break;

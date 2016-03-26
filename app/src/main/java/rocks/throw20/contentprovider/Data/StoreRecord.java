@@ -22,7 +22,7 @@ public class StoreRecord {
         this.mCountryValues = countryValues;
         // Get the name to see if it already exists
         String name = countryValues.getAsString(Contract.CountryEntry.countryName);
-        Log.e(LOG_TAG, "name: " + name);
+        //Log.e(LOG_TAG, "name: " + name);
         // Query the database for the name
         Cursor countriesCursor = mContext.getContentResolver().query(
                Contract.CountryEntry.CONTENT_URI,
@@ -30,10 +30,10 @@ public class StoreRecord {
                Contract.CountryEntry.countryName + " = ?",
                new String[]{name},
                null);
-        Log.e(LOG_TAG, "cursor: " + countriesCursor);
+       // Log.e(LOG_TAG, "cursor: " + countriesCursor);
         // If the record does not exist, add it to the database
         if ( countriesCursor == null) {
-            Log.e(LOG_TAG, "add record");
+            //Log.e(LOG_TAG, "add record");
             mContext.getContentResolver().insert(
                     Contract.CountryEntry.CONTENT_URI,
                     mCountryValues
@@ -41,7 +41,7 @@ public class StoreRecord {
 
         }else {
             countriesCursor.close();
-            Log.e(LOG_TAG, "update record");
+           // Log.e(LOG_TAG, "update record");
 
             // Update the record
             mContext.getContentResolver().update(
