@@ -3,6 +3,7 @@ package rocks.throw20.contentprovider.Data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 /**
  * Created by joselopez on 3/10/16.
@@ -30,7 +31,7 @@ public class FetchTask extends AsyncTask<String, Void, Void> {
 
         // Get the results from the API
         jsonResults = mAPI.callAPI();
-        //Log.e(LOG_TAG, "results " + results);
+        Log.e(LOG_TAG, "results " + jsonResults);
 
         // Parse the results if not null
         if ( jsonResults != null ) {

@@ -22,7 +22,7 @@ public class Provider extends ContentProvider {
     private DBHelper mOpenHelper;
 
     private static final int COUNTRIES = 100;
-    private static final int COUNTRY_ID = 101;
+    private static final int COUNTRY_NAME = 101;
 
 
     // Declare the query builders
@@ -51,13 +51,12 @@ public class Provider extends ContentProvider {
      */
     private Cursor getCountryByName(Uri uri, String[] projection, String sortOrder) {
         Cursor returnCursor;
-        MergeCursor result;
 
         String countrySelection = sCountryByName;
         //---------------------------------------------------------
         // Countries Cursor
         //---------------------------------------------------------
-        String name = Contract.CountryEntry.getCountryIdFromUri(uri);
+        String name = Contract.CountryEntry.getCountryNameFromUri(uri);
         String[] countriesSelectionArgs = {
                 name
         };
@@ -87,7 +86,7 @@ public class Provider extends ContentProvider {
 
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, Contract.PATH_COUNTRIES, COUNTRIES);
-        matcher.addURI(authority, Contract.PATH_COUNTRY_ID + "/#", COUNTRY_ID);
+        matcher.addURI(authority, Contract.PATH_COUNTRY_NAME + "/country/*", COUNTRY_NAME);
 
         return matcher;
     }
@@ -110,7 +109,7 @@ public class Provider extends ContentProvider {
             // Student: Uncomment and fill out these two cases
             case COUNTRIES:
                 return Contract.CountryEntry.CONTENT_TYPE;
-            case COUNTRY_ID:
+            case COUNTRY_NAME:
                 return Contract.CountryEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -123,12 +122,13 @@ public class Provider extends ContentProvider {
         // Here's the switch statement that, given a URI, will determine what kind of request it is,
         // and query the database accordingly.
         Cursor retCursor;
-        //Log.e(LOG_TAG, "query -> " + uri);
+        Log.e(LOG_TAG, "query -> " + uri);
 
         switch (sUriMatcher.match(uri)) {
 
             case COUNTRIES:
             {
+                Log.e(LOG_TAG, "COUNTRIES -> " + true);
 
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         Contract.CountryEntry.COUNTRIES_TABLE_NAME,
@@ -138,15 +138,17 @@ public class Provider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                Log.e(LOG_TAG, "retCursor.getCount() -> " + retCursor.getCount());
                 break;
             }
-            case COUNTRY_ID:
+            case COUNTRY_NAME:
             {
-                //Log.e(LOG_TAG, "query -> " + uri);
+                Log.e(LOG_TAG, "query -> " + uri);
                 retCursor = getCountryByName(uri, projection, sortOrder);
                 break;
             }
             default:
+                Log.e(LOG_TAG, "unknown uri -> " + uri);
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
         // This causes the cursor to register a content observer
@@ -163,6 +165,7 @@ public class Provider extends ContentProvider {
         switch (match) {
             case COUNTRIES:
             {
+                Log.e(LOG_TAG, "Insert -> " + values.getAsString("id"));
                 long _id = db.insert(Contract.CountryEntry.COUNTRIES_TABLE_NAME, null, values);
                 if (_id > 0) returnUri = Contract.CountryEntry.buildCountriesUri(_id);
                 else throw new android.database.SQLException("Failed to insert row into " + uri);

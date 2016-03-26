@@ -18,7 +18,7 @@ public class Contract {
     // The path to the countries database
     public static final String PATH_COUNTRIES = "countries";
     // The path to the country table
-    public static final String PATH_COUNTRY_ID = "country/";
+    public static final String PATH_COUNTRY_NAME = "country/";
     // This is the complete path to the Countries database
 
 
@@ -37,7 +37,7 @@ public class Contract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRIES;
         // Returns a single record
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY_ID;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY_NAME;
 
         // The internal id is used by all tables
         public static final String COUNTRIES_TABLE_NAME = "countries";
@@ -61,8 +61,17 @@ public class Contract {
             return CONTENT_URI.buildUpon().appendPath(Long.toString(id)).build();
         }
 
+        // Build the countries uri with a country name
+        public static Uri buildCountriesUriWithName(String name) {
+            return CONTENT_URI.buildUpon().appendPath(name).build();
+        }
+
         // Get the country id from the uri
         public static String getCountryIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+        // Get the country name from the uri
+        public static String getCountryNameFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
     }

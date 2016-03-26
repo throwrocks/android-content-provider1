@@ -1,7 +1,6 @@
 package rocks.throw20.contentprovider;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,8 +26,8 @@ import rocks.throw20.contentprovider.Data.Contract;
 import rocks.throw20.contentprovider.Data.FetchTask;
 import rocks.throw20.contentprovider.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity {
-    private final String LOG_TAG = MainActivity.class.getSimpleName();
+public class CountriesListActivity extends AppCompatActivity {
+    private final String LOG_TAG = CountriesListActivity.class.getSimpleName();
 
     private boolean mTwoPane;
     Cursor mCursor;
@@ -44,13 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Get cursor
         mCursor = this.getContentResolver().query(
-                Contract.CountryEntry.CONTENT_URI,
-                null,null,null,
+                Contract.CountryEntry.buildCountries(),
+                null,
+                null,
+                null,
                 null);
-
+        Log.e(LOG_TAG, "getItemCount -> " + mCursor.getCount());
         // Create a DataFetch Async task and execute it
-        //FetchTask fetchData = new FetchTask(this);
-        //fetchData.execute();
+
+        FetchTask fetchData = new FetchTask(this);
+        fetchData.execute();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,9 +73,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        Log.e(LOG_TAG, "setupRecyclerView -> " + true);
+        recyclerView.setAdapter(new CountriesListAdapter(this,mCursor));
+
+        //recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
     }
 
+    /**
+     * SimpleItemRecyclerViewAdapter
+     */
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
