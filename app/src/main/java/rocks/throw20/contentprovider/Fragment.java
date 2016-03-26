@@ -23,7 +23,7 @@ import rocks.throw20.contentprovider.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class Fragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class Fragment extends android.support.v4.app.Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>{
     public static final String ARG_ITEM_ID = "item_id";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -32,6 +32,7 @@ public class Fragment extends android.support.v4.app.Fragment implements LoaderM
     private OnListFragmentInteractionListener mListener;
 
     private final String LOG_TAG = Fragment.class.getSimpleName();
+    private final int COUNTRIES_LOADER = 1;
     private Uri mUri;
 
     /**
@@ -79,34 +80,33 @@ public class Fragment extends android.support.v4.app.Fragment implements LoaderM
         return view;
     }
 
+
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        Log.e(LOG_TAG, "onActivityCreated -> " + true);
+        getLoaderManager().initLoader(COUNTRIES_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    public void restartTheLoader() {
+        Log.e(LOG_TAG, "restartTheLoader -> " + true);
+        this.getLoaderManager().restartLoader(COUNTRIES_LOADER, null, this);
+    }
+
+
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
 
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        //Log.e(LOG_TAG, "onLoaderReset ->" + true);
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle arguments) {
-        Log.v(LOG_TAG, "onCreateLoader -> " + true);
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "onCreateLoader -> " + this.getArguments());
-
-        if ( mUri != null ) {
-            Log.v(LOG_TAG, "onCreateLoader -> " + "return cursor");
-            /*return new CursorLoader(
-                    getActivity(),
-                    mUri,
-                    MOVIE_COLUMNS,
-                    null,
-                    null,
-                    null
-            ); */
-
-
-        }
         return null;
     }
 

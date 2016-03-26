@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 
@@ -85,18 +86,35 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
+                        String itemId = holder.mItem.id;
                         arguments.putString(Fragment.ARG_ITEM_ID, holder.mItem.id);
-                        Fragment fragment = new Fragment();
+
+                        Context context = getApplicationContext();
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, itemId, duration);
+                        toast.show();
+
+                        // Placeholder code
+                        /*Fragment fragment = new Fragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.content, fragment)
-                                .commit();
+                                .commit();*/
                     } else {
-                        Context context = v.getContext();
+
+                        String itemId = holder.mItem.id;
+                        Context context = getApplicationContext();
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(context, itemId, duration);
+                        toast.show();
+
+
+                        //Placeholder code
+                        /*Context context = v.getContext();
                         Intent intent = new Intent(context, MainActivity.class);
                         intent.putExtra(Fragment.ARG_ITEM_ID, holder.mItem.id);
 
-                        context.startActivity(intent);
+                        context.startActivity(intent);*/
                     }
                 }
             });
