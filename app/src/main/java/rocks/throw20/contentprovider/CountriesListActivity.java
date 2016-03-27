@@ -35,10 +35,8 @@ public class CountriesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
 
         // Get cursor
@@ -50,7 +48,6 @@ public class CountriesListActivity extends AppCompatActivity {
                 null);
         Log.e(LOG_TAG, "getItemCount -> " + mCursor.getCount());
         // Create a DataFetch Async task and execute it
-
         FetchTask fetchData = new FetchTask(this);
         fetchData.execute();
 
@@ -76,87 +73,6 @@ public class CountriesListActivity extends AppCompatActivity {
         Log.e(LOG_TAG, "setupRecyclerView -> " + true);
         recyclerView.setAdapter(new CountriesListAdapter(this,mCursor));
 
-        //recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
-    }
-
-    /**
-     * SimpleItemRecyclerViewAdapter
-     */
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final List<DummyContent.DummyItem> mValues;
-
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-            mValues = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e(LOG_TAG, "onCreateViewHolder -> " + true);
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.fragment_countries, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            Log.e(LOG_TAG, "onBindviewHolder -> " + true);
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        String itemId = holder.mItem.id;
-
-
-                        Context context = getApplicationContext();
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, itemId, duration);
-                        toast.show();
-
-
-                    } else {
-
-                        String itemId = holder.mItem.id;
-                        Context context = getApplicationContext();
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(context, itemId, duration);
-                        toast.show();
-
-
-                    }
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mIdView = (TextView) view.findViewById(R.id.country_id);
-                mContentView = (TextView) view.findViewById(R.id.country_name);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
-            }
-        }
     }
 
 
