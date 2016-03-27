@@ -58,20 +58,6 @@ public class Contract {
             return CONTENT_URI.buildUpon().build();
         }
 
-        // Build the countries uri with a country id
-        public static Uri buildCountriesUriWithID(long id) {
-            return CONTENT_URI.buildUpon().appendPath(Long.toString(id)).build();
-        }
-
-        // Build the countries uri with a country name
-        public static Uri buildCountriesUriWithName(String name) {
-            return CONTENT_URI.buildUpon().appendPath(name).build();
-        }
-
-        // Get the country id from the uri
-        public static String getCountryIdFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
-        }
         // Get the country name from the uri
         public static String getCountryNameFromUri(Uri uri) {
             return uri.getPathSegments().get(1);

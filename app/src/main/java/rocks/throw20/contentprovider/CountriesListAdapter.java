@@ -92,7 +92,7 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
                 @Override
                 public void onClick(View v) {
 
-                        CharSequence text = holder.viewCountryCapital.getText();
+                        CharSequence text = "Toast";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(mContext, text, duration);
                         toast.show();
