@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,13 +30,7 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Get all the countries in a cursor
-        mCursor = getActivity().getContentResolver().query(
-                Contract.CountryEntry.buildCountries(),
-                null,
-                null,
-                null,
-                null);
+
         countriesAdapter = new CountriesListAdapter(getContext(), mCursor);
 
         Log.e(LOG_TAG, "onCreateView -> " + true);
@@ -79,15 +74,23 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
     }
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader cursorLoader;
+        cursorLoader = new CursorLoader (
+                getActivity(),
+                Contract.CountryEntry.buildCountries(),
+                null,
+                null,
+                null,
+                null);
+
         Log.e(LOG_TAG, "onCreateLoader -> " + true);
-        return null;
+        return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.e(LOG_TAG, "onLoadFinished -> " + true);
-
-        data.moveToFirst();
+        countriesAdapter.changeCursor(data);
 
     }
 
