@@ -18,9 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <provider
-            android:name=".Data.Provider"
+            android:name=".data.Provider"
             android:authorities="rocks.throw20.countries"
             android:enabled="true"
             android:exported="false"

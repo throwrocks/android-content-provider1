@@ -26,8 +26,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <fragment
+            android:id="@+id/fragment"
+            android:tag="countriesList"
+            android:name="rocks.throw20.contentprovider.CountriesListFragment"
+            tools:layout="@layout/fragment_countries_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-        <include layout="@layout/fragment_countries_list" />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton

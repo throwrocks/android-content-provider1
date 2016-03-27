@@ -1,7 +1,8 @@
 package rocks.throw20.contentprovider;
 
-import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -10,20 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.stetho.Stetho;
+import rocks.throw20.contentprovider.data.Contract;
+import rocks.throw20.contentprovider.data.FetchTask;
 
-import rocks.throw20.contentprovider.Data.Contract;
-import rocks.throw20.contentprovider.Data.FetchTask;
-
-public class CountriesListActivity extends AppCompatActivity {
+public class CountriesListActivity extends AppCompatActivity implements CountriesListFragment.Callback{
     private final String LOG_TAG = CountriesListActivity.class.getSimpleName();
 
     private boolean mTwoPane;
@@ -35,18 +30,21 @@ public class CountriesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Stetho.initializeWithDefaults(this);
 
-
-        // Get cursor
+        // Get all the countries in a cursor
         mCursor = this.getContentResolver().query(
                 Contract.CountryEntry.buildCountries(),
                 null,
                 null,
                 null,
                 null);
-        Log.e(LOG_TAG, "getItemCount -> " + mCursor.getCount());
-        // Create a DataFetch Async task and execute it
-        FetchTask fetchData = new FetchTask(this);
-        fetchData.execute();
+        //Log.e(LOG_TAG, "getItemCount -> " + mCursor.getCount());
+
+        // If the Cursor is null, or it doesn't contain 247 records
+        // create a DataFetch Async task and execute it
+        if ( mCursor == null || mCursor.getCount() != 247) {
+            FetchTask fetchData = new FetchTask(this);
+            fetchData.execute();
+        }
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,14 +59,6 @@ public class CountriesListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
-    }
-
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        Log.e(LOG_TAG, "setupRecyclerView -> " + true);
-        recyclerView.setAdapter(new CountriesListAdapter(this,mCursor));
 
     }
 
@@ -93,5 +83,10 @@ public class CountriesListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(Uri dateUri) {
+
     }
 }
