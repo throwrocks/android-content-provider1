@@ -7,8 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import rocks.throw20.contentprovider.Data.Contract;
+
 /**
  * Created by joselopez on 3/10/16.
+ * 
  */
 class JSONParser {
 
@@ -37,6 +40,7 @@ class JSONParser {
             final String fieldCountryName = Contract.CountryEntry.countryName;
             final String fieldCountryCapital = Contract.CountryEntry.countryCapital;
             final String fieldCountryRegion = Contract.CountryEntry.countryRegion;
+            final String fieldCountrySubRegion = Contract.CountryEntry.countrySubRegion;
             final String fieldCountryPopulation = Contract.CountryEntry.countryPopulation;
 
             int countriesQty = countriesArray.length();
@@ -54,6 +58,7 @@ class JSONParser {
                 String countryName = countryRecord.getString(fieldCountryName);
                 String countryCapital = countryRecord.getString(fieldCountryCapital);
                 String countryRegion = countryRecord.getString(fieldCountryRegion);
+                String countrySubRegion = countryRecord.getString(fieldCountrySubRegion);
                 Long countryPopulation = countryRecord.getLong(fieldCountryPopulation);
                 //Log.e(LOG_TAG, "Parsing string: " + countryName + " " + countryCapital + " " + countryRegion);
 
@@ -63,6 +68,7 @@ class JSONParser {
                 countryValues.put(fieldCountryName, countryName);
                 countryValues.put(fieldCountryCapital, countryCapital);
                 countryValues.put(fieldCountryRegion, countryRegion);
+                countryValues.put(fieldCountrySubRegion, countrySubRegion);
                 countryValues.put(fieldCountryPopulation, countryPopulation);
 
                 //----------------------------------------------------------------------------------
