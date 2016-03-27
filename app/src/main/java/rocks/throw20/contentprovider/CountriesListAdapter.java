@@ -6,16 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import rocks.throw20.contentprovider.dummy.DummyContent;
 
 /**
  * Created by josel on 3/26/2016.
@@ -31,7 +26,6 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyContent.DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
@@ -74,19 +68,19 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        CharSequence itemId = holder.mContentView.getText();
+                        CharSequence countryName = holder.mContentView.getText();
 
                         int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(mContext, itemId, duration);
+                        Toast toast = Toast.makeText(mContext, countryName, duration);
                         toast.show();
 
 
                     } else {
 
-                        CharSequence itemId = holder.mContentView.getText();
+                        CharSequence countryName = holder.mContentView.getText();
 
                         int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(mContext, itemId, duration);
+                        Toast toast = Toast.makeText(mContext, countryName, duration);
                         toast.show();
                     }
                 }

@@ -20,11 +20,8 @@ import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 
-import java.util.List;
-
 import rocks.throw20.contentprovider.Data.Contract;
 import rocks.throw20.contentprovider.Data.FetchTask;
-import rocks.throw20.contentprovider.dummy.DummyContent;
 
 public class CountriesListActivity extends AppCompatActivity {
     private final String LOG_TAG = CountriesListActivity.class.getSimpleName();
