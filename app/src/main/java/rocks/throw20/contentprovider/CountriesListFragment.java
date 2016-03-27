@@ -1,12 +1,10 @@
 package rocks.throw20.contentprovider;
 
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import rocks.throw20.contentprovider.data.Contract;
+import rocks.throw20.contentprovider.Data.Contract;
 
 /**
  * Created by josel on 3/27/2016.
@@ -24,6 +22,8 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
 
     public static final String LOG_TAG = CountriesListFragment.class.getSimpleName();
     Cursor mCursor;
+    private CountriesListAdapter countriesAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +36,7 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
                 null,
                 null,
                 null);
+        countriesAdapter = new CountriesListAdapter(getContext(), mCursor);
 
         Log.e(LOG_TAG, "onCreateView -> " + true);
         View rootView = inflater.inflate(R.layout.fragment_countries_list, container, false);
@@ -46,6 +47,13 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
         return rootView;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+        Log.e(LOG_TAG, "onActivityCreated -> " + true);
+    }
+
     /**
      * setupRecyclerView
      * Method to set the adapter on the RecyclerView
@@ -54,7 +62,7 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         Log.e(LOG_TAG, "setupRecyclerView -> " + true);
         Log.e(LOG_TAG, "recyclerView -> " + recyclerView);
-        recyclerView.setAdapter(new CountriesListAdapter(getContext(), mCursor));
+        recyclerView.setAdapter(countriesAdapter);
 
     }
     /**
@@ -71,11 +79,15 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
     }
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.e(LOG_TAG, "onCreateLoader -> " + true);
         return null;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.e(LOG_TAG, "onLoadFinished -> " + true);
+
+        data.moveToFirst();
 
     }
 

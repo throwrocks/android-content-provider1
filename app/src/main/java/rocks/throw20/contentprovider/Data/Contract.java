@@ -7,6 +7,7 @@ import android.provider.BaseColumns;
 
 /**
  * Created by josel on 3/10/2016.
+ *
  */
 public class Contract {
 
@@ -47,6 +48,7 @@ public class Contract {
         public static final String countryName = "name";
         public static final String countryCapital = "capital";
         public static final String countryRegion = "region";
+        public static final String countrySubRegion = "subregion";
         public static final String countryPopulation = "population";
         public static Uri buildCountriesUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

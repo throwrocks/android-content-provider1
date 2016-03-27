@@ -54,7 +54,7 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e(LOG_TAG, "onCreateViewHolder -> " + true);
+            //Log.e(LOG_TAG, "onCreateViewHolder -> " + true);
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.fragment_countries, parent, false);
             return new ViewHolder(view);
@@ -65,7 +65,7 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
 
 
 
-            Log.e(LOG_TAG, "onBindviewHolder -> " + true);
+           // Log.e(LOG_TAG, "onBindviewHolder -> " + true);
             mCursor.moveToPosition(position);
 
             // Set variables for text to set

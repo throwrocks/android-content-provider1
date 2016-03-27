@@ -4,13 +4,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import rocks.throw20.contentprovider.Data.Contract;
+
 /**
  * Created by josel on 3/10/2016.
+ *
  */
 class DBHelper extends SQLiteOpenHelper {
 
     // The databse version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
 
     private static final String DATABASE_NAME = "countries.db";
 
@@ -28,6 +31,7 @@ class DBHelper extends SQLiteOpenHelper {
                         Contract.CountryEntry.countryName + " TEXT NOT NULL, " +
                         Contract.CountryEntry.countryCapital + " TEXT NOT NULL, " +
                         Contract.CountryEntry.countryRegion + " TEXT NOT NULL, " +
+                        Contract.CountryEntry.countrySubRegion + " TEXT NOT NULL, " +
                         Contract.CountryEntry.countryPopulation + " INTEGER NOT NULL " +
                         ")";
         sqLiteDatabase.execSQL(SQL_CREATE_COUNTRIES_TABLE);

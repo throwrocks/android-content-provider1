@@ -11,7 +11,7 @@ import rocks.throw20.contentprovider.Data.Contract;
 
 /**
  * Created by joselopez on 3/10/16.
- * 
+ *
  */
 class JSONParser {
 
