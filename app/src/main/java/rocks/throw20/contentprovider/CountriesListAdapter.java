@@ -51,7 +51,6 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
             mCursor = countriesCursor;
             Log.e(LOG_TAG, "Constructor -> " + true);
 
-
         }
 
         @Override
@@ -75,7 +74,7 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        String itemId = holder.mItem.id;
+                        CharSequence itemId = holder.mContentView.getText();
 
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(mContext, itemId, duration);
@@ -84,13 +83,11 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
 
                     } else {
 
-                        String itemId = holder.mItem.id;
+                        CharSequence itemId = holder.mContentView.getText();
 
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(mContext, itemId, duration);
                         toast.show();
-
-
                     }
                 }
             });
@@ -101,7 +98,5 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
             Log.e(LOG_TAG, "getItemCount -> " + mCursor.getCount());
             return mCursor.getCount();
         }
-
-
-    }
+}
 
