@@ -114,6 +114,7 @@ public class CountriesListAdapter extends RecyclerView.Adapter<CountriesListAdap
      * Called from the fragment to change the cursor once the data is loaded
      */
     public void changeCursor(Cursor cursor) {
+        Log.e(LOG_TAG, "changeCursor -> " + cursor.getCount());
         mCursor = cursor;
     }
 

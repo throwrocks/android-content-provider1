@@ -89,8 +89,11 @@ public class CountriesListFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.e(LOG_TAG, "onLoadFinished -> " + true);
+        //Log.e(LOG_TAG, "onLoadFinished -> " + true);
+
         countriesAdapter.changeCursor(data);
+        countriesAdapter.notifyDataSetChanged();
+
 
     }
 

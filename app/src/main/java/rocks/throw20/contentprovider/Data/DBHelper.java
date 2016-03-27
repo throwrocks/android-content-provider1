@@ -13,7 +13,7 @@ import rocks.throw20.contentprovider.Data.Contract;
 class DBHelper extends SQLiteOpenHelper {
 
     // The databse version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 13;
 
     private static final String DATABASE_NAME = "countries.db";
 
